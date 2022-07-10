@@ -99,15 +99,17 @@ To use storyboard, initialise it using
 npx storybook init
 ```
 Run storyboard Server
+
 ```bash
 npm run storybook
 ```
 
 ---
 ## Todo List
+- [ ] Add a list of items (Map, Flat List implementation)
 - [ ] Add Redux
 - [ ] Add 401 auth layer
-- [ ] Add auth redirection logic
-- [ ] Add android hook for Javascript Interface
+- [x] Add auth redirection logic
+- [x] Add Android hook for Javascript Interface
 - [x] Add hyperlink
 - [ ] Add a animated page

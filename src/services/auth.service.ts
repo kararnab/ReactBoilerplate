@@ -1,7 +1,7 @@
-import axios from "axios";
-import { BASE_URL, URL } from "./Constants";
+import axios from 'axios';
+import { BASE_URL, URL } from './Constants';
 
-const register = (username: string, email: string, password: string) => {
+export const register = (username: string, email: string, password: string) => {
     return axios
         .post(BASE_URL + URL.REGISTER, {
             username,
@@ -10,7 +10,7 @@ const register = (username: string, email: string, password: string) => {
         });
 };
 
-const login = (username: string, password: string) => {
+export const login = (username: string, password: string) => {
     return axios
         .post(BASE_URL + URL.LOGIN, {
             username,
@@ -18,18 +18,25 @@ const login = (username: string, password: string) => {
         })
         .then((response) => {
             if (response.data.accessToken) {
-                localStorage.setItem("user", JSON.stringify(response.data));
+                localStorage.setItem('user', JSON.stringify(response.data));
             }
             return response.data;
+        })
+        .catch((error) => {
+            return processAPIError(error);
         });
 };
 
-const logout = () => {
-    localStorage.removeItem("user");
-};
+export function processAPIError(error: Error) {
+    if (axios.isAxiosError(error)) {
+        console.log('error message: ', error.message);
+        return Promise.reject(error.message);
+    } else {
+        console.log('unexpected error: ', error);
+        return Promise.reject('An unexpected error occurred');
+    }
+}
 
-export default {
-    register,
-    login,
-    logout,
+export const logout = () => {
+    localStorage.removeItem('user');
 };

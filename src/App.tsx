@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import LoginPage from './pages/Login';
 import PageNotFound from './pages/PageNotFound';
 import User from './pages/User';
+import { RequireAuth } from './util/Navigation/RequireAuth';
 
 function App() {
 	return (
@@ -16,7 +17,15 @@ function App() {
 			<Router>
 				<div className='container'>
 					<Routes>
-						<Route path="/" element={<Home />} />
+						{/* <Route path="/" element={<Home />} /> */}
+						<Route
+							path="/"
+							element={
+								<RequireAuth>
+									<Home />
+								</RequireAuth>
+							}
+						/>
 						<Route path="/login" element={<LoginPage />} />
 						<Route
 							path='user/:useName'

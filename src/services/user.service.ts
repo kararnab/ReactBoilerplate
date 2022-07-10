@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios from 'axios';
+import { processAPIError } from './auth.service';
 import { BASE_URL, URL } from "./Constants";
 
 interface Item {
@@ -12,13 +13,7 @@ const getItemList = () => {
         timeout: 1000
     })
         .catch((error) => {
-            if (axios.isAxiosError(error)) {
-                console.log('error message: ', error.message);
-                return error.message;
-            } else {
-                console.log('unexpected error: ', error);
-                return 'An unexpected error occurred';
-            }
+            return processAPIError(error);
         });
 
 };

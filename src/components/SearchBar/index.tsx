@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './SearchBar.scss';
-import useDebounce from '../../hooks/useDebounce';
+import useDebounce from '../../util/hooks/useDebounce';
 
 export interface ISearchBarProps {
 	/**
