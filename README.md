@@ -35,7 +35,7 @@ You should then set up a configuration file:
 ```bash
 npm init @eslint/config
 ```
-Also create a ***.eslintignore*** file similar to ***.gitignore***
+Also create a `.eslintignore` file similar to `.gitignore`
 
 Finally add the scripts in the scripts section:
 ```bash
@@ -51,6 +51,13 @@ Run the fix-lint script to fix any platform related errors.
 npm install axios --save
 ```
 
+## Redux & Thunk Middleware
+We will be using redux for state management in this project
+```bash
+npm install redux react-redux redux-thunk
+npm install --save-dev redux-devtools-extension
+npm i redux-persist --save
+```
 ---
 ## Available Scripts
 
@@ -107,7 +114,7 @@ npm run storybook
 ---
 ## Todo List
 - [ ] Add a list of items (Map, Flat List implementation)
-- [ ] Add Redux
+- [ ] Add Redux & Redux Persist
 - [ ] Add 401 auth layer
 - [x] Add auth redirection logic
 - [x] Add Android hook for Javascript Interface

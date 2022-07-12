@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './login.scss';
 import { Button } from '../../components/Button/Button';
 import { InputBox } from '../../components/InputBox';
-import { login } from '../../services/auth.service';
+import AuthService from '../../services/auth.service';
 import { LoggerUtil } from '../../util/LoggerUtil';
 
 declare global {
@@ -40,7 +40,7 @@ const LoginPage = () => {
                         label={'Login'}
                         onClick={async () => {
                             try {
-                                const res = await login(userName, password);
+                                const res = await AuthService.login(userName, password);
                                 if (window && window.Android && window.Android.onLogin) {
                                     //webView.addJavascriptInterface(AndroidJSInterface, "Android") is implemented by the device
                                     window.Android.onLogin(userName, password);

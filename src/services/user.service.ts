@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { processAPIError } from './auth.service';
 import { BASE_URL, URL } from "./Constants";
+import authHeader, { processAPIError } from './util';
 
 interface Item {
     id: number;
@@ -10,7 +10,8 @@ interface Item {
 const getItemList = () => {
 
     return axios.get<Item[]>(BASE_URL + URL.LIST_ITEM, {
-        timeout: 1000
+        timeout: 1000,
+        headers: authHeader(),
     })
         .catch((error) => {
             return processAPIError(error);

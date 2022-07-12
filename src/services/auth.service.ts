@@ -1,42 +1,50 @@
 import axios from 'axios';
 import { BASE_URL, URL } from './Constants';
+import { processAPIError } from './util';
 
-export const register = (username: string, email: string, password: string) => {
-    return axios
-        .post(BASE_URL + URL.REGISTER, {
-            username,
-            email,
-            password,
-        });
-};
+class AuthService {
+    register(username: string, email: string, password: string) {
+        return axios
+            .post(BASE_URL + URL.REGISTER, {
+                username,
+                email,
+                password,
+            })
+            .catch((error) => {
+                return processAPIError(error);
+            });
+    }
 
-export const login = (username: string, password: string) => {
-    return axios
-        .post(BASE_URL + URL.LOGIN, {
-            username,
-            password,
-        })
-        .then((response) => {
-            if (response.data.accessToken) {
-                localStorage.setItem('user', JSON.stringify(response.data));
+    logout() {
+        localStorage.removeItem('user');
+    }
+
+    async login(username: string, password: string) {
+
+        const dummyLogin = {
+            authKey: '1232141dfsa4223',
+            user: {
+                name: 'Arnab Kar',
+                phone: '9876543210'
             }
-            return response.data;
-        })
-        .catch((error) => {
-            return processAPIError(error);
-        });
-};
+        };
+        return dummyLogin;
 
-export function processAPIError(error: Error) {
-    if (axios.isAxiosError(error)) {
-        console.log('error message: ', error.message);
-        return Promise.reject(error.message);
-    } else {
-        console.log('unexpected error: ', error);
-        return Promise.reject('An unexpected error occurred');
+        //TODO:
+        // try {
+        //     const response = await axios
+        //         .post(BASE_URL + URL.LOGIN, {
+        //             username,
+        //             password,
+        //         });
+        //     if (response.data.accessToken) {
+        //         localStorage.setItem('user', JSON.stringify(response.data));
+        //     }
+        //     return response.data;
+        // } catch (error) {
+        //     return await processAPIError(error);
+        // }
     }
 }
 
-export const logout = () => {
-    localStorage.removeItem('user');
-};
+export default new AuthService();
