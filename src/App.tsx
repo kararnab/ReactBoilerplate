@@ -8,6 +8,7 @@ import './App.css';
 import Home from './pages/Home';
 import LoginPage from './pages/Login';
 import PageNotFound from './pages/PageNotFound';
+import RegisterPage from './pages/Register';
 import User from './pages/User';
 import { RequireAuth } from './util/Navigation/RequireAuth';
 
@@ -27,6 +28,7 @@ function App() {
 							}
 						/>
 						<Route path="/login" element={<LoginPage />} />
+						<Route path="/register" element={<RegisterPage />} />
 						<Route
 							path='user/:useName'
 							element={<User />}

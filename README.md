@@ -54,8 +54,7 @@ npm install axios --save
 ## Redux & Thunk Middleware
 We will be using redux for state management in this project
 ```bash
-npm install redux react-redux redux-thunk
-npm install --save-dev redux-devtools-extension
+npm i reduxjs/toolkit --save
 npm i redux-persist --save
 ```
 ---

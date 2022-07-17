@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import './login.scss';
 import { Button } from '../../components/Button/Button';
 import { InputBox } from '../../components/InputBox';
-import AuthService from '../../services/auth.service';
-import { LoggerUtil } from '../../util/LoggerUtil';
+import { useDispatch } from 'react-redux';
+import { signIn } from '../../redux/slices/userSlice';
+import { useLocation } from 'react-router-dom';
 
 declare global {
     interface Window {
@@ -12,15 +13,23 @@ declare global {
 }
 
 const LoginPage = () => {
-    const [userName, setUsername] = useState('');
+
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const fromLocation = useLocation();
+
+    console.log(fromLocation);
+
+
+    const dispatch = useDispatch();
 
     return (
         <div>
             <div className='login-container'>
                 <div className='login-form'>
                     <InputBox
-                        text={userName}
+                        text={username}
                         setText={(text: string) => {
                             setUsername(text);
                         }}
@@ -39,18 +48,16 @@ const LoginPage = () => {
                         style={{ marginTop: '15px' }}
                         label={'Login'}
                         onClick={async () => {
-                            try {
-                                const res = await AuthService.login(userName, password);
-                                if (window && window.Android && window.Android.onLogin) {
-                                    //webView.addJavascriptInterface(AndroidJSInterface, "Android") is implemented by the device
-                                    window.Android.onLogin(userName, password);
-                                } else {
-                                    LoggerUtil.logAnalyticsEvent({ msg: 'Javascript interface not present for this device' });
+                            //TODO: remove hardcode
+                            console.log('onClick');
+                            dispatch(signIn({
+                                authKey: '1234214',
+                                user: {
+                                    id: '1',
+                                    name: 'Arnab Kar'
                                 }
-                                console.log(res);
-                            } catch (e) {
-                                console.log(e);
-                            }
+                            }));
+                            //dispatch(login(username, password));
                         }}
                     />
                 </div>
