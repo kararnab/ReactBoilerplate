@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userReducer from './slices/userSlice';
 import cartReducer from './slices/cartSlice';
 import storage from 'redux-persist/lib/storage'; //Local Storage
-// Session Storage -> import storageSession from 'reduxjs-toolkit-persist/lib/storage/session'
+// Session Storage -> import storageSession from 'reduxjs-toolkit-persist/lib/storage/session';
 import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
 

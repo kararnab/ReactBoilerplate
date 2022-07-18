@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './login.scss';
 import { Button } from '../../components/Button/Button';
 import { InputBox } from '../../components/InputBox';
-import { useDispatch } from 'react-redux';
-import { signIn } from '../../redux/slices/userSlice';
-import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { ILogin, signIn } from '../../redux/slices/userSlice';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { RootState } from '../../redux/store';
+import { redirectAfterAuth } from '../../util/Navigation/RequireAuth';
+import { performLogin } from '../../redux/thunk/userThunk';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 declare global {
     interface Window {
@@ -12,17 +16,25 @@ declare global {
     }
 }
 
+export interface ILocation {
+    state: any | unknown
+}
+
 const LoginPage = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [modal, setModal] = useState({ isVisible: false, title: '' });
+    const user: ILogin = useSelector((state: RootState) => state.user);
 
-    const fromLocation = useLocation();
-
-    console.log(fromLocation);
-
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const fromLocation: ILocation = useLocation();
+
+    useEffect(() => {
+        redirectAfterAuth(user, fromLocation, navigate);
+    }, [user]);
 
     return (
         <div>
@@ -45,19 +57,17 @@ const LoginPage = () => {
                     />
                     <Button
                         primary={true}
+                        disabled={user.status.isLoading}
                         style={{ marginTop: '15px' }}
                         label={'Login'}
                         onClick={async () => {
-                            //TODO: remove hardcode
-                            console.log('onClick');
-                            dispatch(signIn({
-                                authKey: '1234214',
-                                user: {
-                                    id: '1',
-                                    name: 'Arnab Kar'
-                                }
-                            }));
-                            //dispatch(login(username, password));
+                            try {
+                                const resultAction = await dispatch<any>(performLogin({ userId: username, password: password }));
+                                //const originalPromiseResult = unwrapResult(resultAction);
+                                // handle result here
+                            } catch (rejectedValueOrSerializedError) {
+                                // handle error here
+                            }
                         }}
                     />
                 </div>

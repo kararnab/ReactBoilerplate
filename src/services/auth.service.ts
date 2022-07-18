@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { ILogin } from '../redux/slices/userSlice';
 import { BASE_URL, URL } from './Constants';
 import { processAPIError } from './util';
 
 class AuthService {
-    register(username: string, email: string, password: string) {
+    async register(username: string, email: string, password: string) {
         return axios
             .post(BASE_URL + URL.REGISTER, {
                 username,
@@ -15,20 +16,26 @@ class AuthService {
             });
     }
 
-    logout() {
-        localStorage.removeItem('user');
-    }
-
     async login(username: string, password: string) {
 
-        const dummyLogin = {
-            authKey: '1232141dfsa4223',
-            user: {
-                name: 'Arnab Kar',
-                phone: '9876543210'
-            }
-        };
-        return dummyLogin;
+        return new Promise<ILogin>(function (resolve, reject) {
+            const dummyLogin = {
+                status: {
+                    isLoading: false,
+                    errorMsg: ''
+                },
+                authKey: '1232141dfsa4223',
+                user: {
+                    id: '1',
+                    name: 'Arnab Kar',
+                    phone: '9876543210'
+                }
+            };
+            return setTimeout(() => {
+                return resolve(dummyLogin);
+            }, 1000);
+        });
+
 
         //TODO:
         // try {

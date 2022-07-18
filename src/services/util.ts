@@ -18,3 +18,8 @@ export function processAPIError(error: any) {
         return Promise.reject('An unexpected error occurred');
     }
 }
+
+export interface IStatus {
+    isLoading: boolean,
+    errorMsg: string,
+}

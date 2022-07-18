@@ -112,10 +112,11 @@ npm run storybook
 
 ---
 ## Todo List
-- [ ] Add a list of items (Map, Flat List implementation)
-- [ ] Add Redux & Redux Persist
+- [x] Add Redux & Redux Persist
 - [ ] Add 401 auth layer
+- [x] Add API using thunk
 - [x] Add auth redirection logic
 - [x] Add Android hook for Javascript Interface
 - [x] Add hyperlink
+- [x] Add [Portals](https://reactjs.org/docs/portals.html) for Modal
 - [ ] Add a animated page
