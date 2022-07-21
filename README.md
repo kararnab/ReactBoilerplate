@@ -119,4 +119,4 @@ npm run storybook
 - [x] Add Android hook for Javascript Interface
 - [x] Add hyperlink
 - [x] Add [Portals](https://reactjs.org/docs/portals.html) for Modal
-- [ ] Add a animated page
+- [x] Add a animated page
