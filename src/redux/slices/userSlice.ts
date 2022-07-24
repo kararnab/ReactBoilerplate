@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IStatus } from '../../services/util';
 import { performLogin } from '../thunk/userThunk';
 
@@ -28,6 +28,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         signIn: (state, action: PayloadAction<ILogin>) => {
+            console.log('Reducer: Signin');
             state.authKey = action.payload.authKey;
             state.user = action.payload.user;
         },
@@ -37,11 +38,13 @@ const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(performLogin.pending, (state, action) => {
-            //TODO: action.payload
             state.status = { isLoading: true, errorMsg: '' };
         });
         builder.addCase(performLogin.fulfilled, (state, action) => {
             //TODO: action.payload
+            console.log('Reducer: Signin Fulfuilled');
+            console.log(state);
+            console.log(action);
             state.status = { isLoading: false, errorMsg: '' };
             state.authKey = 'asqwdeqwf234cas';
         });

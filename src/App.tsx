@@ -18,6 +18,8 @@ function App() {
 			<Router>
 				<div className='container'>
 					<Routes>
+						<Route path="/login" element={<LoginPage />} />
+						<Route path="/register" element={<RegisterPage />} />
 						<Route
 							path="/"
 							element={
@@ -26,11 +28,13 @@ function App() {
 								</RequireAuth>
 							}
 						/>
-						<Route path="/login" element={<LoginPage />} />
-						<Route path="/register" element={<RegisterPage />} />
 						<Route
 							path='user/:useName'
-							element={<User />}
+							element={
+								<RequireAuth>
+									<User />
+								</RequireAuth>
+							}
 						/>
 						<Route path='*' element={<PageNotFound />} />
 					</Routes>

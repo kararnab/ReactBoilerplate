@@ -32,10 +32,10 @@
         display: flex;
         justify-content: space-between;
         padding: 0.3rem;
+        background-color: #443387;
     }
 
     &-headerText {
-        color: #fff;
         align-self: center;
         color: lightgray;
     }
@@ -46,6 +46,7 @@
         border-radius: 3px;
         margin-left: 0.5rem;
         background: none;
+        color: lightgray;
 
         :hover {
             cursor: pointer;

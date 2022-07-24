@@ -1,6 +1,6 @@
 //https://nainacodes.com/blog/create-an-accessible-and-reusable-react-modal
 
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent } from 'react';
 import ReactDOM from 'react-dom';
 
 import './modalStyles.scss';

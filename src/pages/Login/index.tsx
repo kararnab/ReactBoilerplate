@@ -3,12 +3,13 @@ import './login.scss';
 import { Button } from '../../components/Button/Button';
 import { InputBox } from '../../components/InputBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { ILogin, signIn } from '../../redux/slices/userSlice';
+import { ILogin } from '../../redux/slices/userSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RootState } from '../../redux/store';
 import { redirectAfterAuth } from '../../util/Navigation/RequireAuth';
 import { performLogin } from '../../redux/thunk/userThunk';
 import { unwrapResult } from '@reduxjs/toolkit';
+import Toast from '../../components/Toast';
 
 declare global {
     interface Window {
@@ -24,7 +25,7 @@ const LoginPage = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [modal, setModal] = useState({ isVisible: false, title: '' });
+    const [snackBar, setSnackbar] = useState({ isVisible: false, title: '' });
     const user: ILogin = useSelector((state: RootState) => state.user);
 
     const navigate = useNavigate();
@@ -37,7 +38,18 @@ const LoginPage = () => {
     }, [user]);
 
     return (
-        <div>
+        <div style={{
+            backgroundImage: 'url(https://i.stack.imgur.com/19yNw.png)',
+            backgroundRepeat: 'repeat',
+        }}>
+            <Toast
+                show={snackBar.isVisible}
+                hideToast={() => {
+                    setSnackbar({ isVisible: false, title: '' });
+                }}
+            >
+                {snackBar.title}
+            </Toast>
             <div className='login-container'>
                 <div className='login-form'>
                     <InputBox
@@ -63,10 +75,13 @@ const LoginPage = () => {
                         onClick={async () => {
                             try {
                                 const resultAction = await dispatch<any>(performLogin({ userId: username, password: password }));
-                                //const originalPromiseResult = unwrapResult(resultAction);
+                                const originalPromiseResult = unwrapResult(resultAction);
                                 // handle result here
-                            } catch (rejectedValueOrSerializedError) {
+                                console.log(originalPromiseResult);
+
+                            } catch (rejectedValueOrSerializedError: any) {
                                 // handle error here
+                                setSnackbar({ isVisible: true, title: 'Unable to Login' });
                             }
                         }}
                     />
@@ -78,7 +93,7 @@ const LoginPage = () => {
                     </a>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 export default LoginPage;

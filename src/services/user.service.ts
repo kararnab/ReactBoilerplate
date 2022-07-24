@@ -9,7 +9,6 @@ interface Item {
 }
 
 const getItemList = (query: string) => {
-    console.log(`Query: ${query}`);
     return axios.get<Item[]>(BASE_URL + URL.LIST_ITEM, {
         timeout: 10000,
         headers: authHeader(),
