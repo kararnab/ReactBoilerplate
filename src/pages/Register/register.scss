@@ -1,4 +1,4 @@
-.login {
+.register {
     &-bg {
         background-image: 'url(https://i.stack.imgur.com/19yNw.png)';
         background-repeat: 'repeat',
@@ -27,6 +27,5 @@
 
     &-error {
         color: red;
-        font-size: 12px;
     }
 }
